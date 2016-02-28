@@ -17,7 +17,7 @@ class Strategy::ForcedSlope
 
 	def generate
 		begin 
-			candidate_line = random_line(30)
+			candidate_line = random_line
 		end until angle_within(candidate_line)
 		candidate_line
 	end

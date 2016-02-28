@@ -1,10 +1,14 @@
 require_relative '../line.rb'
+require_relative './heatMap.rb'
 
 module Strategy
+
 	def self.create(type, canvas)
 		case type
 			when :forced_slope
 				return Strategy::ForcedSlope.new(canvas)
+			when :sparce_slope
+				return Strategy::SparceSlope.new(canvas)
 		end
 	end
 
@@ -20,8 +24,9 @@ module Strategy
 		end until line_b != line_a
 		start_point = line_a.random_point(increments)
 		end_point = line_b.random_point(increments)
-		Line.new(start_point.x, start_point.y, end_point.x, end_point.y)
+		Line.new(start_point, end_point)
 	end
 end
 
 require_relative './forcedSlope.rb'
+require_relative './sparceSlope.rb'

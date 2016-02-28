@@ -11,9 +11,9 @@ class Line
 
 	attr_accessor :end1, :end2
 
-	def initialize(x1, y1, x2, y2, width = nil)
-		@end1 = Point.new(x1, y1)
-		@end2 = Point.new(x2, y2)
+	def initialize(p1, p2, width = nil)
+		@end1 = p1
+		@end2 = p2
 		@stroke = :black
 		width ? @width = width : @width = 2
 	end
