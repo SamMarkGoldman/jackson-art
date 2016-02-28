@@ -1,14 +1,18 @@
 require 'builder'
 require 'pry'
-require './seedFactory.rb'
+require './canvas.rb'
 
 
-initial_grid = SeedFactory.new(500, 500).perspective
+canvas = Canvas.simple_grid(700, 700, :forced_slope)
+120.times.each do
+	canvas.add_line
+end
+
 
 xml = Builder::XmlMarkup.new(:indent => 4)
 xml.instruct!
-xml.svg(width: "500", height: "500", xmlns: "http://www.w3.org/2000/svg", version: "1.1") {
-	initial_grid.each{ |line| line.render xml }
+xml.svg(width: canvas.width.to_s, height: canvas.height.to_s, xmlns: "http://www.w3.org/2000/svg", version: "1.1") {
+	canvas.lines.each{ |line| line.render xml }
 	# test_line.render xml
 }
 

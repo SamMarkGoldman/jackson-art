@@ -15,7 +15,7 @@ class Line
 		@end1 = Point.new(x1, y1)
 		@end2 = Point.new(x2, y2)
 		@stroke = :black
-		@width = 5
+		@width = 2
 	end
 
 	def render(xml)
@@ -27,5 +27,17 @@ class Line
 			stroke: @stroke.to_s, 
 			"stroke-width" => @width.to_s
 		)
+	end	
+
+	def to_s
+		"#{end1}, #{end2}"
+	end
+
+	def random_point
+		end1 + vector * rand
+	end
+
+	def vector
+		@vector ||= end2 - end1
 	end
 end
