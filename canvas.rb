@@ -39,23 +39,23 @@ class Canvas
 
 	def vertical_lines
 		increment = @width / 10
-		generate_lines(11) { |n| Line.new(n*increment, 0, n*increment, @height) }
+		generate_lines(11) { |n| Line.new(n*increment, 0, n*increment, @height, 3) }
 	end
 
 	def horizontal_lines
 		increment = @height / 10
-		generate_lines(11) { |n| Line.new(0, n*increment, @width, n*increment) }
+		generate_lines(11) { |n| Line.new(0, n*increment, @width, n*increment, 3) }
 	end
 
 	def narrowed_vertical_lines
 		increment = @width / 10
 		small_increment = @width / 30
-		generate_lines(11) { |n| Line.new(@width / 3 + n*small_increment, 0, n*increment, @height) }
+		generate_lines(11) { |n| Line.new(@width / 3 + n*small_increment, 0, n*increment, @height, 4) }
 	end
 
 	def exponential_horizontal_lines
 		increment = @height / 40
-		generate_lines(11) { |n| Line.new(0, (n*increment)**1.35, @width, (n*increment)**1.35) }
+		generate_lines(11) { |n| Line.new(0, (n*increment)**1.35, @width, (n*increment)**1.35, 4) }
 	end
 
 	def generate_lines(n)
