@@ -1,15 +1,9 @@
 require 'builder'
 require 'pry'
-require './line.rb'
+require './seedFactory.rb'
 
-test_line = Line.new(40, 200, 120, 180)
-initial_grid = []
-11.times.each do |n|
-	initial_grid << Line.new(n*50, 0, n*50, 500)
-end
-11.times.each do |n|
-	initial_grid << Line.new(0, n*50, 500, n*50)
-end
+
+initial_grid = SeedFactory.new(500, 500).perspective
 
 xml = Builder::XmlMarkup.new(:indent => 4)
 xml.instruct!
