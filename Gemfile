@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+gem 'debugger'
+gem 'pry'
+gem 'byebug', '~> 8.2', '>= 8.2.2'
+gem 'pry-byebug'
+gem 'builder'
