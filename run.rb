@@ -4,7 +4,8 @@ require './canvas.rb'
 
 
 # canvas = Canvas.simple_grid(700, 700, :forced_slope)
-canvas = Canvas.simple_grid(700, 700, :sparce_slope)
+# canvas = Canvas.simple_grid(700, 700, :sparce_slope)
+canvas = Canvas.perspective(700, 700, :sparce_slope)
 120.times.each do
 	canvas.add_line
 end

@@ -10,16 +10,19 @@ class HeatMap
 	end
 
 	def line_proximity_score(line)
-		line_points(line).reduce do |cost, point|
+		line_points(line).reduce(0) do |cost, point|
 			cost += point_proximity_score(point)
+			cost
 		end
 	end
 
 	def point_proximity_score(point)
-		search_r = @inc * 4
-		score = slice(point.x - search_r, point.x + search_r).reduce do |cost, map_point|
-			magnitude = (map_point - point).magnitude
-			cost += magnitude**2 if magnitude < search_r
+		search_r = @inc * 3
+		s = slice(point.x - search_r, point.x + search_r)
+		score = slice(point.x - search_r, point.x + search_r).reduce(0) do |cost, map_point|
+			distance = (map_point - point).magnitude
+			cost += (search_r - distance)**2 if distance < search_r
+			cost
 		end
 		score == nil ? 0 : score
 	end
@@ -30,10 +33,8 @@ class HeatMap
 		start = nil
 		length = 0
 		counter = 0
-		# binding.pry if @map_points.count > 0
 		start = 0 if @map_points.count > 0 && @map_points[0].x > x1
 		@map_points.each do |p|
-			# binding.pry
 			start = counter if !start && p.x > x1
 			length += 1 if start
 			break if start && p.x > x2
