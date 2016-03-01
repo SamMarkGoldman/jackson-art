@@ -11,10 +11,10 @@ class Line
 
 	attr_accessor :end1, :end2
 
-	def initialize(p1, p2, width = nil)
+	def initialize(p1, p2, width = nil, stroke = :black)
 		@end1 = p1
 		@end2 = p2
-		@stroke = :black
+		@stroke = stroke
 		width ? @width = width : @width = 2
 	end
 

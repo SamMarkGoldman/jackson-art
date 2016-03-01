@@ -3,17 +3,18 @@ require_relative './heatMap.rb'
 
 module Strategy
 
-	def self.create(type, canvas)
+	attr_writer :canvas
+
+	def self.create(type)
 		case type
 			when :forced_slope
-				return Strategy::ForcedSlope.new(canvas)
+				return Strategy::ForcedSlope.new
 			when :sparce_slope
-				return Strategy::SparceSlope.new(canvas)
+				return Strategy::SparceSlope.new
 		end
 	end
 
-	def initialize(canvas)
-		@canvas = canvas
+	def initialize
 		set_instance if respond_to? :set_instance
 	end
 

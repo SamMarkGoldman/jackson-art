@@ -17,7 +17,7 @@ class HeatMap
 	end
 
 	def point_proximity_score(point)
-		search_r = @inc * 3
+		search_r = @inc * 5
 		s = slice(point.x - search_r, point.x + search_r)
 		score = slice(point.x - search_r, point.x + search_r).reduce(0) do |cost, map_point|
 			distance = (map_point - point).magnitude

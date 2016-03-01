@@ -4,19 +4,23 @@ require './strategy/strategy.rb'
 class Canvas
 	attr_reader :lines, :width, :height
 
-	def self.simple_grid(width, height, strategy)
-		new(width, height, strategy).simple_grid
+	def self.simple_grid(width, height)
+		new(width, height).simple_grid
 	end
 
-	def self.perspective(width, height, strategy)
-		new(width, height, strategy).perspective
+	def self.perspective(width, height)
+		new(width, height).perspective
 	end
 
-	def initialize(width, height, strategy)
+	def initialize(width, height)
 		@width = width
 		@height = height
 		@lines = []
-		@strategy = Strategy.create(strategy, self)
+	end
+
+	def set_strategy(strategy)
+		@strategy = strategy
+		strategy.canvas = self
 	end
 
 	def simple_grid
@@ -54,8 +58,8 @@ class Canvas
 	end
 
 	def exponential_horizontal_lines
-		increment = @height / 40
-		generate_lines(11) { |n| Line.new(Point.new(0, (n*increment)**1.35), Point.new(@width, (n*increment)**1.35), 4) }
+		increment = @height / 120
+		generate_lines(11) { |n| Line.new(Point.new(0, (n*increment)**1.75), Point.new(@width, (n*increment)**1.75), 4) }
 	end
 
 	def generate_lines(n)
