@@ -4,18 +4,19 @@ require_relative './heatMap.rb'
 module Strategy
 
 	attr_writer :canvas
+	attr_reader :heat_map
 
-	def self.create(type)
+	def self.create(type, args = nil)
 		case type
 			when :forced_slope
-				return Strategy::ForcedSlope.new
+				return Strategy::ForcedSlope.new args
 			when :sparce_slope
-				return Strategy::SparceSlope.new
+				return Strategy::SparceSlope.new args
 		end
 	end
 
-	def initialize
-		set_instance if respond_to? :set_instance
+	def initialize(args)
+		set_instance(args) if respond_to? :set_instance
 	end
 
 	def random_line(increments = nil)

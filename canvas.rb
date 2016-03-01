@@ -42,13 +42,13 @@ class Canvas
 	private
 
 	def vertical_lines
-		increment = @width / 10
-		generate_lines(11) { |n| Line.new(Point.new(n*increment, 0), Point.new(n*increment, @height), 3) }
+		increment = @width / 5
+		generate_lines(6) { |n| Line.new(Point.new(n*increment, 0), Point.new(n*increment, @height), 3) }
 	end
 
 	def horizontal_lines
-		increment = @height / 10
-		generate_lines(11) { |n| Line.new(Point.new(0, n*increment), Point.new(@width, n*increment), 3) }
+		increment = @height / 5
+		generate_lines(6) { |n| Line.new(Point.new(0, n*increment), Point.new(@width, n*increment), 3) }
 	end
 
 	def narrowed_vertical_lines

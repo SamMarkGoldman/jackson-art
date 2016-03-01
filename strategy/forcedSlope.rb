@@ -1,7 +1,7 @@
 class Strategy::ForcedSlope
 	include Strategy
 
-	def set_instance
+	def set_instance(args)
 		@goal_vecs = [
 			Point.new(2.5, 2),
 			Point.new(-1, 3)

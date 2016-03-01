@@ -3,19 +3,35 @@ require 'pry'
 require './canvas.rb'
 
 
-# canvas = Canvas.simple_grid(700, 700, :forced_slope)
-# canvas = Canvas.simple_grid(700, 700, :sparce_slope)
-canvas = Canvas.perspective(700, 700)
-canvas.set_strategy Strategy.create(:forced_slope)
-60.times.each do
+# Point.new(2.5, 2),
+# Point.new(-1, 3),
+
+canvas = Canvas.simple_grid(700, 700)
+# canvas.set_strategy Strategy.create(:forced_slope)
+# 60.times.each do
+# 	canvas.add_line
+# end
+
+# make sure the heat map is reusable
+
+strat = Strategy.create(:sparce_slope, {
+	goals: [ Point.new(2.5, 2), Point.new(-1, 3) ],
+	color: '#a00',
+	max_length: 700..700
+})
+canvas.set_strategy strat
+80.times.each do
 	canvas.add_line
 end
 
-canvas.set_strategy Strategy.create(:sparce_slope)
-60.times.each do
-	canvas.add_line
-end
-
+# canvas.set_strategy Strategy.create(:sparce_slope, {
+# 	goals: [ Point.new(1, 0), Point.new(0, 3) ],
+# 	color: '#60b',
+# 	max_length: 60..150
+# })
+# 60.times.each do
+# 	canvas.add_line
+# end
 
 xml = Builder::XmlMarkup.new(:indent => 4)
 xml.instruct!
@@ -28,3 +44,6 @@ xml.svg(width: canvas.width.to_s, height: canvas.height.to_s, xmlns: "http://www
 file = File.new("output.svg", "wb")
 file.write(xml.target!)
 file.close
+
+binding.pry
+a = 0
