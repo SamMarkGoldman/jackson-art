@@ -20,7 +20,7 @@ strat = Strategy.create(:sparce_slope, {
 	max_length: 700..700
 })
 canvas.set_strategy strat
-80.times.each do
+280.times.each do
 	canvas.add_line
 end
 
@@ -45,5 +45,5 @@ file = File.new("output.svg", "wb")
 file.write(xml.target!)
 file.close
 
-binding.pry
-a = 0
+# binding.pry
+# a = 0

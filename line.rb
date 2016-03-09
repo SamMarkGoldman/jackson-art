@@ -37,6 +37,10 @@ class Line
 		end1 + vector * random_value(increments)
 	end
 
+	def magnitude
+		vector.magnitude
+	end
+
 	def vector
 		@vector ||= end2 - end1
 	end

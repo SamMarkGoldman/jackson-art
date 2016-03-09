@@ -2,8 +2,6 @@ require_relative '../line.rb'
 require_relative './heatMap.rb'
 
 module Strategy
-
-	attr_writer :canvas
 	attr_reader :heat_map
 
 	def self.create(type, args = nil)
@@ -17,6 +15,10 @@ module Strategy
 
 	def initialize(args)
 		set_instance(args) if respond_to? :set_instance
+	end
+
+	def canvas=(c)
+		@canvas = c
 	end
 
 	def random_line(increments = nil)

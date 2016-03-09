@@ -1,4 +1,6 @@
 class HeatMap
+	attr_writer :canvas
+
 	def initialize(inc)
 		@inc = inc
 		@map_points = []
@@ -18,16 +20,46 @@ class HeatMap
 
 	def point_proximity_score(point)
 		search_r = @inc * 10
-		s = slice(point.x - search_r, point.x + search_r)
 		score = slice(point.x - search_r, point.x + search_r).reduce(0) do |cost, map_point|
-			distance = (map_point - point).magnitude
+			vector = (map_point - point)
+			distance = vector.magnitude
 			cost += (search_r - distance)**2 if distance < search_r
 			cost
 		end
-		score == nil ? 0 : score
+
+
+		# test this!!!!!!
+		
+
+
+
+		score == nil ? 0 : score * in_bounds_fraction(point, search_r)**-1
 	end
 
 	private
+
+	def in_bounds_fraction (point, radius)
+		steps = 10
+		rays = []
+		1.upto(10).each do |i|
+			angle = Math::PI * i.to_f / 5
+			rays << Point.new( Math.cos(angle) * radius, Math.sin(angle) * radius)
+		end
+		# rays = [
+		# 	Point.new(radius, 0),
+		# 	Point.new(radius, ),
+		# 	Point.new(0, radius),
+		# 	Point.new(-radius, 0),
+		# 	Point.new(0, -radius)
+		# ]
+		count = 0
+		rays.each do |ray|
+			steps.times.each do |step|
+				count += 1 if @canvas.in_bounds?(point + ray * (step.to_f / steps))
+			end
+		end
+		count.to_f / rays.count * steps
+	end
 
 	def slice(x1, x2)
 		start = nil

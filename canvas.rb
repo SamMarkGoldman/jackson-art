@@ -20,7 +20,7 @@ class Canvas
 
 	def set_strategy(strategy)
 		@strategy = strategy
-		strategy.canvas = self
+		@strategy.canvas = self
 	end
 
 	def simple_grid
@@ -37,6 +37,11 @@ class Canvas
 
 	def add_line
 		@lines << @strategy.generate
+	rescue
+	end
+
+	def in_bounds?(point)
+		point.x >= 0 && point.x <= width && point.y >= 0 && point.y <= height
 	end
 
 	private
