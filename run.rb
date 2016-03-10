@@ -20,8 +20,12 @@ strat = Strategy.create(:sparce_slope, {
 	max_length: 700..700
 })
 canvas.set_strategy strat
-280.times.each do
-	canvas.add_line
+NUMBER_LINES = 280
+NUMBER_LINES.times.each do |n|
+  red_value = (128 * n.to_f / NUMBER_LINES + 90).to_i.to_s(16)
+  green_value = (-100 * n.to_f / NUMBER_LINES + 120).to_i.to_s(16)
+  color = "##{red_value}#{green_value}00"
+	canvas.add_line(color)
 end
 
 # canvas.set_strategy Strategy.create(:sparce_slope, {

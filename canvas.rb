@@ -35,8 +35,8 @@ class Canvas
 		self
 	end
 
-	def add_line
-		@lines << @strategy.generate
+	def add_line(color = :black)
+		@lines << @strategy.generate(color)
 	rescue
 	end
 
@@ -48,12 +48,12 @@ class Canvas
 
 	def vertical_lines
 		increment = @width / 5
-		generate_lines(6) { |n| Line.new(Point.new(n*increment, 0), Point.new(n*increment, @height), 3) }
+		generate_lines(6) { |n| Line.new(Point.new(n*increment, 0), Point.new(n*increment, @height), 4, '#aaa') }
 	end
 
 	def horizontal_lines
 		increment = @height / 5
-		generate_lines(6) { |n| Line.new(Point.new(0, n*increment), Point.new(@width, n*increment), 3) }
+		generate_lines(6) { |n| Line.new(Point.new(0, n*increment), Point.new(@width, n*increment), 4, '#aaa') }
 	end
 
 	def narrowed_vertical_lines

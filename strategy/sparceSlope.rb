@@ -21,7 +21,7 @@ class Strategy::SparceSlope < Strategy::ForcedSlope
 		@heat_map.canvas = c
 	end
 
-	def generate
+	def generate(stroke_color = :black)
 		start_point_candidates = []
 		50.times.each { start_point_candidates << @canvas.lines.sample.random_point }
 		start_point_candidates.sort_by!{ |p| @heat_map.point_proximity_score(p) }
@@ -29,7 +29,7 @@ class Strategy::SparceSlope < Strategy::ForcedSlope
 		# binding.pry
 		candidate_lines = []
 		start_point_candidates[1,20].each do |p|
-			line = Line.new(start_point_candidates[0], p)
+			line = Line.new(start_point_candidates[0], p, nil, stroke_color)
 			if (line.magnitude < 300)
 				candidate_lines << line
 				# break
