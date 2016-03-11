@@ -17,14 +17,28 @@ canvas = Canvas.simple_grid(700, 700)
 strat = Strategy.create(:sparce_slope, {
 	goals: [ Point.new(2.5, 2), Point.new(-1, 3) ],
 	color: '#a00',
-	max_length: 700..700
+	max_length: 155..250
 })
 canvas.set_strategy strat
-NUMBER_LINES = 280
+NUMBER_LINES = 330
 NUMBER_LINES.times.each do |n|
   red_value = (128 * n.to_f / NUMBER_LINES + 90).to_i.to_s(16)
   green_value = (-100 * n.to_f / NUMBER_LINES + 120).to_i.to_s(16)
   color = "##{red_value}#{green_value}00"
+	canvas.add_line(color)
+end
+
+strat = Strategy.create(:sparce_slope, {
+	goals: [ Point.new(2.5, 0) ],
+	color: '#a00',
+	max_length: 80..150
+})
+canvas.set_strategy strat
+# NUMBER_LINES = 280
+(NUMBER_LINES/2).times.each do |n|
+  red_value = (128 * n.to_f / NUMBER_LINES + 90).to_i.to_s(16)
+  green_value = (-100 * n.to_f / NUMBER_LINES + 120).to_i.to_s(16)
+  color = "#0000#{green_value}"
 	canvas.add_line(color)
 end
 
@@ -48,6 +62,3 @@ xml.svg(width: canvas.width.to_s, height: canvas.height.to_s, xmlns: "http://www
 file = File.new("output.svg", "wb")
 file.write(xml.target!)
 file.close
-
-# binding.pry
-# a = 0

@@ -1,3 +1,5 @@
+require_relative './helper.rb'
+
 class Strategy::SparceSlope < Strategy::ForcedSlope
 	include Strategy
 
@@ -10,7 +12,7 @@ class Strategy::SparceSlope < Strategy::ForcedSlope
 			@goal_vecs << goal
 			@goal_vecs << goal * -1
 		end
-		@color = args[:color] ? args[:color] : :black
+		# @color = args[:color] ? args[:color] : :black
 		@max_length = args[:max_length] ? args[:max_length] : 1000..1000
 		
 		@heat_map = HeatMap.new(HEAT_MAP_INC)
@@ -26,21 +28,12 @@ class Strategy::SparceSlope < Strategy::ForcedSlope
 		50.times.each { start_point_candidates << @canvas.lines.sample.random_point }
 		start_point_candidates.sort_by!{ |p| @heat_map.point_proximity_score(p) }
 
-		# binding.pry
 		candidate_lines = []
-		start_point_candidates[1,20].each do |p|
-			line = Line.new(start_point_candidates[0], p, nil, stroke_color)
-			if (line.magnitude < 300)
-				candidate_lines << line
-				# break
-			end
+		max_length = rand * @max_length.max + @max_length.min
+		Strategy::Helper.unique_pairs(start_point_candidates[0, 7]).each do |pair|
+			candidate_line = Line.new(pair[0], pair[1], 2, stroke_color)
+			candidate_lines << candidate_line if angle_within(candidate_line) && candidate_line.magnitude < max_length
 		end
-		# max_length = rand * @max_length.max + @max_length.min
-		# begin
-		# 	end_candidate = @canvas.lines.sample.random_point
-		# 	candidate_line = Line.new(best_start_point, end_candidate, 2, @color)
-		# 	candidate_lines << candidate_line if angle_within(candidate_line) && candidate_line.magnitude < max_length
-		# end until candidate_lines.count >= 20
 
 		raise StandardError if candidate_lines.count == 0
 		new_line = candidate_lines.min{ |line| @heat_map.line_proximity_score(line) }
